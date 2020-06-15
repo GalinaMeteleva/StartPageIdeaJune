@@ -1,0 +1,39 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+
+  <filter>
+    <filter-name>AuthFilter</filter-name>
+    <filter-class>org.web.servlet.AuthentificationFilter</filter-class>
+    <init-param>
+      <param-name>AuthentificationFilter.IS_ACTIVE_FILTER_PARAM</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthFilter</filter-name>
+    <servlet-name>HelloServlet</servlet-name>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>org.web.servlet.HelloServletJava</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/hello-user</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>
+
