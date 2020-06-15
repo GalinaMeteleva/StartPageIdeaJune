@@ -1,0 +1,46 @@
+package org.web.servlet;
+
+import org.model.Contact;
+import org.services.AuthorizationServiceJava;
+import org.services.FakeAuthorizationServiceImpl;
+
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(name = "LoginServletJava", urlPatterns = "/auth")
+
+public class LoginServlet {
+
+    public static final String LOGIN_PARAM = "login";
+    public static final String PASSWORD_PARAM = "password";
+
+    private final AuthorizationServiceJava authorizationService = FakeAuthorizationServiceImpl.getInstance();
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String login = req.getParameter(LOGIN_PARAM);
+        final String password = req.getParameter(PASSWORD_PARAM);
+
+        final Contact contact = authorizationService.authorize(login, password);
+
+        final String contextPath = req.getContextPath();
+
+        if(contact == null) {
+            resp.sendRedirect(contextPath + "/login.jsp");
+        }
+        else {
+            req.setAttribute("username", contact.getFirstName() + " " + contact.getLastName());
+            resp.setContentType("text/html");
+            resp.setIntHeader("number-text-header", 6);
+            final RequestDispatcher dispatcher = req.getRequestDispatcher("hello-anno");
+
+            //dispatcher.forward(req, resp); TODO try this
+            dispatcher.include(req, resp);
+
+            resp.getWriter().write("<p> from login page </p>");
+        }
+    }
+}
