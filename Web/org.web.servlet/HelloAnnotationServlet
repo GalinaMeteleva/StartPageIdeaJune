@@ -1,63 +1,31 @@
 package org.web.servlet;
 
-import javax.persistence.AssociationOverride;
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Stream;
 
-@WebFilter(
-        filterName = "AuthFilter",
-        urlPatterns = "/*",
-        initParams = {
-                @WebInitParam(name = AuthentificationFilter.IS_ACTIVE_FILTER_PARAM,
-                        value = "true",
-                        description = "activation of filter")
-        }
-)
+@WebServlet(name = "HelloAnnotationServletJava", urlPatterns = {"/hello-anno"})
 
-public class AuthentificationFilter implements Filter {
+public class HelloAnnotationServlet {
 
-        public static final String USER_ID_PARAM = "userId";
-        public static final String IS_ACTIVE_FILTER_PARAM = "isActive";
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        private boolean active;
-
-        @Override
-        public void init (FilterConfig filterConfig) throws ServletException {
-        final String isActiveString = filterConfig.getInitParameter(IS_ACTIVE_FILTER_PARAM);
-        active = isActiveString == null || isActiveString.toLowerCase().equals(true);
-        }
-
-        @Override
-        public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-            final HttpServletRequest req = (HttpServletRequest) request;
-            final HttpServletResponse resp = (HttpServletResponse) response;
-
-            if(hasValidSession((HttpServletRequest) request)) {
-                chain.doFilter(request, resp);
-            }
-            else {
-                resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            }
-        }
-        @Override
-        public void destroy() {
-        }
-
-    private boolean hasValidSession(HttpServletRequest request) {
-        final HttpSession session = request.getSession();
-        return session != null && session.getAttribute(USER_ID_PARAM) != null;
+        resp.setContentType("texe/html");
+        final PrintWriter writer = resp.getWriter();
+        final String username = (String) req.getAttribute("username");
+        writer.write("<h1>Hello " + username + "</h1>");
+        writer.write("<p>This is a servlet via annotations</p>");
     }
-    private boolean bypassFilter(HttpServletRequest request) {
-        final String path = request.getContextPath();
-        final String s = request.getRequestURI().replaceFirst(request.getContextPath(), "");
-        return Stream.of("login.jsp", "/auth").anyMatch(path::equalsIgnoreCase);
-    }
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        doGet(req, resp);
+    }
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        doGet(req, resp);
+    }
 }
