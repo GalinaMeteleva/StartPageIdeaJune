@@ -1,0 +1,12 @@
+Package org.eqiupment;
+
+public enum Equipment {
+
+    BUTTERFLY,
+    TRACTION,
+    BENCH_PRESS,
+    FRAME,
+    TREADMILL,
+    EXERCISE_BIKE
+
+}
