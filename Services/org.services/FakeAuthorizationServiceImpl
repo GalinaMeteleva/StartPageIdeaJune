@@ -1,0 +1,28 @@
+import org.model.Contact;
+import org.services.AuthorizationServiceJava;
+
+public class FakeAuthorizationServiceImpl implements AuthorizationServiceJava{
+
+    private static AuthorizationServiceJava instance;
+
+    public static AuthorizationServiceJava getInstance() {
+        if(instance == null) {
+            synchronized(AuthorizationServiceJava.class) {
+                if(instance == null) {
+                    instance = new FakeAuthorizationServiceImpl();
+                }
+            }
+        }
+        return instance;
+    }
+    private FakeAuthorizationServiceImpl() {
+    }
+    public Contact authorize(String login, String password) {
+        if("admin".equals(login) && "admin".equals(password)) {
+            return new Contact ("admin", "admin", "N", "N");
+        }
+        else {
+            return null;
+        }
+    }
+}
