@@ -1,0 +1,9 @@
+package org.services;
+
+import org.model.Contact;
+
+public interface AuthorizationServiceJava {
+
+    Contact authorize(String login, String password);
+
+}
