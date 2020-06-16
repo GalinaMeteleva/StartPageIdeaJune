@@ -18,11 +18,18 @@ public class FakeAuthorizationServiceImpl implements AuthorizationServiceJava{
     private FakeAuthorizationServiceImpl() {
     }
     public Contact authorize(String login, String password) {
+        
         if("admin".equals(login) && "admin".equals(password)) {
+            final Contact contact = new Contact();
             return new Contact ("admin", "admin", "N", "N");
         }
-        else {
-            return null;
+        else if("trainer".equals(login) && "trainer".equals(password)) {
+            final Contact contact = new Contact();
+            return new Contact ("trainer", "trainer", "N", "N");
+        }
+        else if("guest".equals(login) && "guest".equals(password)) {
+            final Contact contact = new Contact();
+            return new Contact ("guest", "guest", "N", "N");
         }
     }
 }
