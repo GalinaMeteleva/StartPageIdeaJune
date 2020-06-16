@@ -31,5 +31,6 @@ public class FakeAuthorizationServiceImpl implements AuthorizationServiceJava{
             final Contact contact = new Contact();
             return new Contact ("guest", "guest", "N", "N");
         }
+        return null;
     }
 }
