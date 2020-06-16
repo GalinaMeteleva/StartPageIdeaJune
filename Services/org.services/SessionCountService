@@ -1,0 +1,13 @@
+package org.services;
+
+public interface SessionCountService {
+
+    int initialValue = 0;
+
+    public int count();
+
+    public int remove();
+
+    public int add();
+
+}
