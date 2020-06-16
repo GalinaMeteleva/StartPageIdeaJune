@@ -1,0 +1,22 @@
+package org.web.servlet;
+
+import org.services.SessionCountService;
+import org.services.SessionCountServiceImpl;
+
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
+
+public class SessionCountListener {
+
+    private final SessionCountService sessionCountService = new SessionCountServiceImpl();
+
+    public void sessionCreated(HttpSessionEvent se) {
+        final int count = SessionCountService.add();
+        System.out.println("Session added. count: " + count);
+    }
+    public void sesiionDestroyed(HttpSessionEvent se) {
+        final int count = SessionCountService.remove();
+        System.out.println("Session added. count: " + count);
+    }
+
+}
