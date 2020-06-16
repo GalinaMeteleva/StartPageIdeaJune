@@ -1,0 +1,22 @@
+package org.services;
+
+import org.services.SessionCountService;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class SessionCountServiceImpl implements SessionCountService {
+
+    private final AtomicInteger counter = new AtomicInteger(initialValue);
+
+    @Override
+    public int count() {
+        return counter.get();
+    }
+    @Override
+    public int remove() {
+        return counter.decrementAndGet();
+    }
+    @Override
+    public int add() {
+        return counter.incrementAndGet();
+    }
+}
