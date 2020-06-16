@@ -8,8 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Авторизация<br/>Аўтарызацыя</title>
+    <title>Регистрация<br/>Рэгістрацыя</title>
 </head>
+<link rel="stylesheet" href="style.css">
 <body>
 <h1>Login page</h1>
 <form action="auth" method="post">
